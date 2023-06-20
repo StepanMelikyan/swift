@@ -1,0 +1,120 @@
+import UIKit
+
+//Создать структуру работника пиццерии. В ней должны быть такие свойства, как имя, зарплата и должность. Должностей пока может быть две: или кассир, или повар. Добавить в класс пиццерии массив с работниками.
+//Создать класс столика, в нём должно быть свойство, в котором содержится количество мест и функция, которая на вход принимает количество гостей, которое хотят посадить, а возвращает true, если места хватает и false, если места не хватает. Изначальное количество мест задаётся в инициализаторе.
+//Добавить в класс пиццерии свойство, в котором хранится массив столиков. У класса столика добавить свойство, в котором хранится кафе, в котором стоит столик. Столики создаются сразу в инициализаторе, не передаются туда в качестве параметра.
+//1.
+struct Employer{
+    var name: String
+    var salary: Int
+    enum Postion {
+        case cashier
+        case cook
+    }
+}
+
+protocol MenuPizzaProtocol {
+    var name: String {get}
+    var cost: Double {get}
+}
+struct Pizza: MenuPizzaProtocol {
+    
+    enum PizzaType{
+        case diablo
+        case margarta
+        case pepperoni
+        case meat
+    }
+    var cost: Double
+    var type: PizzaType
+    var thickness: Bool
+    var add: [Ingridients]
+    var name: String
+}
+struct Potato: MenuPizzaProtocol{
+    var cost: Double
+    var size: PotSize
+    var name: String
+}
+enum PotSize{
+    case s
+    case m
+    case l
+}
+enum Ingridients{
+    case tomato
+    case cheeze
+    case meat
+}
+class Pizzeria{
+    var employers: [Employer]
+    var menu: [MenuPizzaProtocol]
+    // дл] третьего задания
+    var tables: [Table] = []
+    
+    init(menu: [MenuPizzaProtocol]){
+        self.menu = menu
+    }
+
+    func addPizza(_ pizza: Pizza){
+        menu.append(pizza)
+    }
+
+    func getPizza() -> [MenuPizzaProtocol]{
+        menu
+    }
+    //2.
+    func addNew(_ new: MenuPizzaProtocol){
+        menu.append(new)
+    }
+}
+
+
+protocol NewProtocol {
+    func open()
+    func close()
+}
+
+
+extension Pizzeria: NewProtocol{
+    func open() {
+        print("Open")
+    }
+    func close() {
+        print("Close")
+    }
+}
+
+//2.Создать класс столика, в нём должно быть свойство, в котором содержится количество мест и функция, которая на вход принимает количество гостей, которое хотят посадить, а возвращает true, если места хватает и false, если места не хватает. Изначальное количество мест задаётся в инициализаторе.
+class Table{
+    // для второго задания
+    var numberOfSeats: Int
+    init(numberOfSeats: Int){
+        self.numberOfSeats = numberOfSeats
+    }
+    
+    //для третьего задания
+    var cafe: Pizzeria
+    init(cafe: Pizzeria, numberOfSeats: Int) {
+      self.cafe = cafe
+      self.numberOfSeats = numberOfSeats
+    }
+    func numbre(_ n: Int) -> Bool{
+        n <= numberOfSeats
+    }
+}
+//3.Добавить в класс пиццерии свойство, в котором хранится массив столиков. У класса столика добавить свойство, в котором хранится кафе, в котором стоит столик. Столики создаются сразу в инициализаторе, не передаются туда в качестве параметра.
+
+
+
+class Cafe {
+    private var menu: [MenuProtocol] = []
+
+}
+
+
+protocol MenuProtocol {
+    var name: String{get set}
+    var cost: Double {get}
+}
+
